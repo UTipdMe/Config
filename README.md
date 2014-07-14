@@ -1,1 +1,1 @@
-The {{ name }} component for UTipdMe.
+The config component for UTipdMe.
