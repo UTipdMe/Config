@@ -1,0 +1,4 @@
+__extends: parent.yaml
+shared: bar-child
+child: baz-child
+
