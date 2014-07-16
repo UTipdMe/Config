@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": ">=5.5.0",
+        "ext-mongo": ">=1.5.0",
         "symfony/config": "~2.5",
         "symfony/yaml": "~2.5"
     },
