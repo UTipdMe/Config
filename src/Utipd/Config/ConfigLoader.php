@@ -80,6 +80,26 @@ class ConfigLoader
         foreach($config_chain_entries as $entry) {
             $data = array_replace_recursive($data, $entry['data']);
         }
+
+        // resolve environment
+        $data = $this->resolveEnvironmentOverrides($data);
+
+        return $data;
+    }
+
+    protected function resolveEnvironmentOverrides($data) {
+        if (isset($data['allowedEnvironmentOverrides'])) {
+            foreach ($data['allowedEnvironmentOverrides'] as $env_var_name => $replacement_config_key) {
+                $new_value = getenv($env_var_name);
+                if ($new_value !== false) {
+                    $data[$replacement_config_key] = $new_value;
+                }
+            }
+
+
+            unset($data['allowedEnvironmentOverrides']);
+        }
+
         return $data;
     }
 

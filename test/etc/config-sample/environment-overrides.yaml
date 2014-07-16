@@ -1,0 +1,5 @@
+key1: foo
+key2: foo
+
+allowedEnvironmentOverrides:
+    KEY_1: key1

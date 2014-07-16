@@ -1,0 +1,4 @@
+__extends: environment-overrides.yaml
+
+allowedEnvironmentOverrides:
+    KEY_2: key2
