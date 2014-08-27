@@ -16,11 +16,13 @@ class ConfigLoader
 
     protected $config_directory = null;
     protected $cache_directory = null;
+    protected $suffix = null;
     protected $debug = false;
 
-    public function __construct($config_directory, $cache_directory, $debug) {
+    public function __construct($config_directory, $cache_directory, $suffix=null, $debug=false) {
         $this->config_directory = $config_directory;
         $this->cache_directory = $cache_directory;
+        $this->suffix = $suffix;
         $this->debug = $debug;
     }
 
@@ -104,7 +106,7 @@ class ConfigLoader
     }
 
     protected function buildCacheFilepath($name, $relative_dir) {
-        return $this->cache_directory.(rtrim('/'.$relative_dir, '/')).'/'.$name.'.php';
+        return $this->cache_directory.(rtrim('/'.$relative_dir, '/')).'/'.$name.$this->suffix.'.php';
     }
     protected function buildConfigFilepath($name, $relative_dir) {
         return $this->config_directory.(rtrim('/'.$relative_dir, '/')).'/'.$name;

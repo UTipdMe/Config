@@ -13,7 +13,8 @@ class EnvironmentOverridesLoaderTest extends PHPUnit_Framework_TestCase
 
 
     public function testWithoutEnvironment() {
-        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', true);
+        putenv("KEY_1");
+        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', null, true);
         $data = $config_loader->loadYamlFile('environment-overrides.yaml');
         PHPUnit::assertEquals('foo', $data['key1']);
 
@@ -27,7 +28,7 @@ class EnvironmentOverridesLoaderTest extends PHPUnit_Framework_TestCase
     public function testWithEnvironment() {
         putenv("KEY_1=bar");
 
-        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', true);
+        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', null, true);
         $data = $config_loader->loadYamlFile('environment-overrides.yaml');
         PHPUnit::assertEquals('bar', $data['key1']);
 
@@ -42,7 +43,7 @@ class EnvironmentOverridesLoaderTest extends PHPUnit_Framework_TestCase
         putenv("KEY_1=bar");
         putenv("KEY_2=bar");
 
-        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', true);
+        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', null, true);
         $data = $config_loader->loadYamlFile('environment-overrides-child.yaml');
         PHPUnit::assertEquals('bar', $data['key2']);
         PHPUnit::assertEquals('bar', $data['key1']);

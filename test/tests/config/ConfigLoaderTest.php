@@ -13,7 +13,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 
     public function testConfigLoader() {
-        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', true);
+        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', null, true);
         $data = $config_loader->loadYamlFile('test.yaml');
         PHPUnit::assertEquals('bar', $data['greatData']['foo']);
 
@@ -22,7 +22,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     } 
 
     public function testConfigLoaderInheritance() {
-        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', true);
+        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', null, true);
         $data = $config_loader->loadYamlFile('child.yaml');
         PHPUnit::assertEquals('foo', $data['parent']);
         PHPUnit::assertEquals('bar-child', $data['shared']);
@@ -34,7 +34,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testClearCache() {
         // not in debug mode
-        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', false);
+        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', null, false);
         $config_loader->clearCache('dynamic.yaml');
 
         $old_val = time()-1;
@@ -53,7 +53,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     public function testHeirarchicalCacheExpiry() {
-        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', false);
+        $config_loader = new ConfigLoader(TEST_PATH.'/etc/config-sample', TEST_PATH.'/var/cache', null, false);
         $data = $config_loader->loadYamlFile('child.yaml');
 
         $old_val = time()-1;
